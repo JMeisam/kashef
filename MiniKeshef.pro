@@ -16,9 +16,17 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    libpcapsniffer.cpp
+    libpcapsniffer.cpp \
+    Ethernet.cpp \
+    Ip.cpp \
+    Icmp.cpp \
+    Arp.cpp
 
 LIBS += -lpcap
 
 HEADERS += \
-    libpcapsniffer.h
+    libpcapsniffer.h \
+    Ethernet.h \
+    Ip.h \
+    Icmp.h \
+    Arp.h

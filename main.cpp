@@ -3,20 +3,20 @@
 
 int main(int argc, char **argv)
 {
-    LibpcapSniffer Sniffer;
-    char interface[256] = "";
+    LibpcapSniffer sniffer;
+    char file_name[256] = "";
     int packets = 0, c;
 
     //Get command line options
-    while ((c = getopt(argc, argv, "hi:n")) != -1) {
+    while ((c = getopt(argc, argv, "hf:n")) != -1) {
 
         switch (c) {
         case 'h':
-            printf("Usage: %s [-h] [-i] [-n] []\n", argv[0]);
+            printf("Usage: %s [-h] [-f] [-n] []\n", argv[0]);
             exit(0);
             break;
-        case 'i':
-            strcpy(interface, optarg);
+        case 'f':
+            strcpy(file_name, optarg);
             break;
         case 'n':
             packets = atoi(optarg);
@@ -24,11 +24,7 @@ int main(int argc, char **argv)
             break;
         }
     }
-    pcap_t* pd;
-    if ((pd = Sniffer.OpenPcapSocket(interface))) {
-        Sniffer.SetMaxNumOfPacket(packets);
-        Sniffer.CaptureLoop(pd);
-    }
-    pcap_close(pd);
+    sniffer.open_packet_socket(file_name);
+    sniffer.capture_loop();
     return 0;
 }
